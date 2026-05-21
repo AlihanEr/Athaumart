@@ -27,7 +27,7 @@ export default function Statement() {
           no manifesto. Only an attention.
         </p>
         <div className="signature">
-          — Athaum
+          — <span className="brand">Athaum</span>
           <small>アタウム · drawing since 2017</small>
         </div>
       </div>

@@ -98,7 +98,7 @@ export default function Contact() {
 
       <div className="footnote">
         <div>
-          <div className="big">— Athaum.</div>
+          <div className="big">— <span className="brand">Athaum</span>.</div>
           <span>© MMXXVI · All plates retained by the artist</span>
         </div>
         <div

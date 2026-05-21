@@ -859,35 +859,112 @@ section{position:relative;}
 }
 .reveal.in{opacity:1;transform:none;}
 
-/* ─── Loader (intro) ────────────────────────────────── */
+/* ─── Loader (intro — animated font cycle) ─────────── */
 .intro{
   position:fixed;inset:0;
   background:var(--ink);
   z-index:1000;
+  pointer-events:none;
+  display:grid;
+  grid-template-rows:1fr auto;
+  align-items:stretch;
+  overflow:hidden;
+  transition:opacity .6s cubic-bezier(.22,.7,.2,1);
+}
+.intro--gone{opacity:0;}
+
+/* faint katakana ghost behind the wordmark */
+.intro::before{
+  content:"アタウム";
+  position:absolute;
+  inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  pointer-events:none;
-  animation:introOut 1.4s ease 1.4s forwards;
-}
-.intro .word{
-  font-family:"Fraunces",serif;
+  font-family:"Noto Serif JP",serif;
   font-weight:300;
-  font-variation-settings:"opsz" 144,"SOFT" 30;
-  font-size:14vw;
-  line-height:.9;
-  letter-spacing:-.05em;
+  font-size:42vw;
+  line-height:1;
+  letter-spacing:.05em;
+  color:var(--ink-3);
+  opacity:.55;
+  user-select:none;
+  pointer-events:none;
+}
+
+.intro-stage{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 6vw;
+}
+.intro-word{
+  font-size:clamp(56px,13vw,200px);
+  line-height:1;
   color:var(--paper);
-  opacity:0;
-  animation:introIn .9s cubic-bezier(.22,.7,.2,1) .2s forwards;
+  white-space:nowrap;
+  text-align:center;
+  /* a tiny snap into place on each frame change */
+  animation:wordSnap 200ms cubic-bezier(.22,.7,.2,1);
 }
-.intro .word em{
-  font-style:italic;
-  font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1;
-  color:var(--vermillion);
+.intro--settled .intro-word{
+  animation:wordSettle 700ms cubic-bezier(.22,.7,.2,1);
 }
-@keyframes introIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
-@keyframes introOut{to{opacity:0;visibility:hidden;}}
+@keyframes wordSnap{
+  from{opacity:0;transform:translateY(8px) scale(.985);filter:blur(2px);}
+  to{opacity:1;transform:none;filter:none;}
+}
+@keyframes wordSettle{
+  from{opacity:0;transform:translateY(12px);letter-spacing:0;filter:blur(3px);}
+  to{opacity:1;transform:none;filter:none;}
+}
+
+.intro-meta{
+  position:relative;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 32px 22px;
+  font-family:"Geist Mono",monospace;
+  font-size:11px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--paper-dim);
+}
+.intro-label{color:var(--paper-dim);}
+.intro--settled .intro-label{color:var(--vermillion);}
+.intro-progress{color:var(--paper);font-weight:500;}
+
+/* the loading bar at the very bottom of the screen */
+.intro-bar{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:2px;
+  background:var(--vermillion);
+  transform-origin:left center;
+  transform:scaleX(0);
+  transition:transform 220ms cubic-bezier(.22,.7,.2,1);
+  box-shadow:0 0 18px var(--vermillion);
+}
+
+/* ─── Brand wordmark (Athaum signature) ─────────────── */
+.brand{
+  font-family:"Marcellus",serif !important;
+  font-weight:400 !important;
+  font-style:normal !important;
+  font-variation-settings:normal !important;
+  letter-spacing:.02em !important;
+  color:var(--paper) !important;
+}
+.brand-wide{
+  font-family:"Marcellus",serif !important;
+  font-weight:400 !important;
+  font-style:normal !important;
+  font-variation-settings:normal !important;
+  letter-spacing:.22em !important;
+  text-transform:uppercase;
+}
 
 /* ─── Responsive ────────────────────────────────────── */
 @media (max-width:1100px){

@@ -18,7 +18,7 @@ export default function Hero() {
 
       <div className="title reveal" style={{ "--d": "400ms" } as React.CSSProperties}>
         <h1>
-          A<em>th</em>aum
+          <span className="brand">Athaum</span>
           <br />
           <span className="stroke">paints</span> the
           <br />
